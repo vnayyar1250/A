@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry, My Love 💕</title>
+    <style>
+        :root {
+            --pink-light: #ffe0ec;
+            --pink: #ffb6c1;
+            --pink-dark: #ff69b4;
+            --rose: #ff6b8a;
+            --coral: #ff7f7f;
+            --purple-light: #f0e6ff;
+            --purple: #c9a0dc;
+            --white: #fff;
+            --gold: #ffd700;
+            --bg: #fff5f7;
+            --text: #5d3a4f;
+            --shadow: 0 8px 32px rgba(255, 105, 135, 0.2);
+            --card-bg: #ffffff;
+            --border-radius: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: default;
+            min-height: 100vh;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ============ FLOATING HEARTS BACKGROUND ============ */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: floatUp linear forwards;
+            opacity: 0.8;
+            pointer-events: none;
+            filter: blur(0px);
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) rotate(0deg) scale(0.3);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(50vh) rotate(180deg) scale(1.1);
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(0.2);
+                opacity: 0;
+            }
+        }
+
+        /* ============ SPARKLE TRAIL ============ */
+        .sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 0.9rem;
+            animation: sparkleFade 0.7s ease-out forwards;
+        }
+        @keyframes sparkleFade {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--sx), var(--sy)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* ============ MAIN WRAPPER ============ */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px 30px;
+            position: relative;
+        }
+        .hero-emoji {
+            font-size: 5rem;
+            animation: bounceHero 1s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes bounceHero {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-30px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            70% {
+                transform: translateY(-15px);
+            }
+            85% {
+                transform: translateY(0);
+            }
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b8a, #ff69b4, #c9a0dc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 10px 0;
+            animation: shimmer 2s ease-in-out infinite;
+            letter-spacing: -1px;
+        }
+        @keyframes shimmer {
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.3);
+            }
+        }
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #888;
+            animation: fadeInUp 1s ease-out;
+            margin-top: 5px;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hero-hearts-row {
+            font-size: 2rem;
+            animation: pulseRow 1.5s ease-in-out infinite;
+            margin-top: 10px;
+        }
+        @keyframes pulseRow {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* ============ SECTION TITLES ============ */
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 30px 0 15px;
+            color: #ff6b8a;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffb6c1, transparent);
+            border-radius: 10px;
+        }
+
+        /* ============ PHOTO GALLERY ============ */
+        .gallery-section {
+            padding: 20px 10px;
+        }
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .polaroid {
+            background: #fff;
+            border-radius: 8px;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: inline-block;
+            max-width: 200px;
+        }
+        .polaroid:nth-child(1) {
+            transform: rotate(-3deg);
+        }
+        .polaroid:nth-child(2) {
+            transform: rotate(2deg);
+        }
+        .polaroid:nth-child(3) {
+            transform: rotate(-1.5deg);
+        }
+        .polaroid:nth-child(4) {
+            transform: rotate(3.5deg);
+        }
+        .polaroid:nth-child(5) {
+            transform: rotate(-2.5deg);
+        }
+        .polaroid:nth-child(6) {
+            transform: rotate(1deg);
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.08) !important;
+            box-shadow: 0 16px 40px rgba(255, 105, 135, 0.3);
+            z-index: 10;
+        }
+        .polaroid img {
+            width: 100%;
+            max-width: 170px;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            background: #f0e0e5;
+        }
+        .polaroid .caption {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: #999;
+            font-style: italic;
+            white-space: nowrap;
+        }
+        .gallery-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #bbb;
+            font-style: italic;
+            background: #fff;
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ============ TIC TAC TOE ============ */
+        .ttt-section {
+            padding: 20px 10px;
+            text-align: center;
+        }
+        .ttt-wrapper {
+            display: inline-block;
+            background: #fff;
+            border-radius: 24px;
+            padding: 25px 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .ttt-status {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ff6b8a;
+            min-height: 30px;
+            transition: all 0.3s;
+        }
+        .ttt-board {
+            display: grid;
+            grid-template-columns: repeat(3, 90px);
+            grid-template-rows: repeat(3, 90px);
+            gap: 8px;
+            justify-content: center;
+        }
+        .ttt-cell {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #fff5f7, #ffe0ec);
+            border-radius: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            position: relative;
+            border: 2px solid transparent;
+        }
+        .ttt-cell:hover {
+            background: #fff0f4;
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(255, 105, 135, 0.25);
+            border-color: #ffb6c1;
+        }
+        .ttt-cell.winning-cell {
+            animation: winGlow 0.6s ease-in-out infinite alternate;
+            background: #fffde0 !important;
+            border-color: #ffd700 !important;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5) !important;
+        }
+        @keyframes winGlow {
+            0% {
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+                transform: scale(1.08);
+            }
+        }
+        .ttt-cell.taken {
+            cursor: default;
+            pointer-events: none;
+        }
+        .ttt-reset {
+            margin-top: 18px;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 105, 135, 0.35);
+            letter-spacing: 0.5px;
+        }
+        .ttt-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 105, 135, 0.5);
+            background: linear-gradient(135deg, #ff69b4, #ff4477);
+        }
+        .ttt-score {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #777;
+        }
+        .ttt-score span {
+            background: #fff5f7;
+            padding: 5px 14px;
+            border-radius: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ============ LOVE NOTE GAME ============ */
+        .note-section {
+            padding: 20px 10px;
+            text-align: center;
+        }
+        .note-container {
+            display: inline-block;
+            background: #fff;
+            border-radius: 24px;
+            padding: 30px 25px;
+            box-shadow: var(--shadow);
+            position: relative;
+            min-height: 280px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            border: 3px dashed #ffe0ec;
+        }
+        .note-envelope-emoji {
+            font-size: 4rem;
+            animation: bounceHero 2s ease-in-out infinite;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .note-message {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b8a;
+            margin: 10px 0 20px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        .note-buttons-area {
+            position: relative;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-love {
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #ff6b8a, #ff4477);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(255, 68, 119, 0.4);
+            z-index: 5;
+            position: relative;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .btn-love:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 68, 119, 0.6);
+        }
+        .btn-love:active {
+            transform: scale(0.95);
+        }
+        .btn-hate {
+            padding: 14px 30px;
+            background: #e8e8e8;
+            color: #888;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: absolute;
+            z-index: 4;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            letter-spacing: 0.5px;
+        }
+        .btn-hate:hover {
+            background: #f5f5f5;
+        }
+        .btn-hate.moving-fast {
+            transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .dodge-counter {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: 8px;
+            font-style: italic;
+            min-height: 20px;
+            transition: all 0.3s;
+        }
+        .speech-bubble {
+            position: absolute;
+            background: #333;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #333;
+        }
+        .speech-bubble.show {
+            opacity: 1;
+        }
+
+        /* ============ CELEBRATION OVERLAY ============ */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            display: none;
+        }
+        .celebration-overlay.active {
+            display: block;
+        }
+        .celebration-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 4rem;
+            font-weight: 900;
+            z-index: 10001;
+            pointer-events: none;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            color: #ff6b8a;
+            text-shadow: 0 0 40px rgba(255, 105, 135, 0.6);
+        }
+        .celebration-text.show {
+            transform: translate(-50%, -50%) scale(1);
+            animation: celebrationBounce 0.6s ease-out;
+        }
+        @keyframes celebrationBounce {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        canvas#confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        /* ============ CUTE CARTOON MASCOT ============ */
+        .mascot {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 50;
+            font-size: 3.5rem;
+            animation: mascotBounce 2s ease-in-out infinite;
+            cursor: pointer;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s;
+        }
+        .mascot:hover {
+            transform: scale(1.3);
+            animation: mascotWiggle 0.4s ease-in-out;
+        }
+        @keyframes mascotBounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-25px);
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+            80% {
+                transform: translateY(-18px);
+            }
+        }
+        @keyframes mascotWiggle {
+            0%,
+            100% {
+                transform: rotate(0);
+            }
+            25% {
+                transform: rotate(-15deg);
+            }
+            75% {
+                transform: rotate(15deg);
+            }
+        }
+        .mascot-tooltip {
+            position: fixed;
+            bottom: 95px;
+            right: 20px;
+            background: #333;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            z-index: 51;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s;
+            white-space: nowrap;
+        }
+        .mascot-tooltip.show {
+            opacity: 1;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer-note {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 1rem;
+            color: #bbb;
+            font-style: italic;
+        }
+        .footer-note .heart-beat {
+            display: inline-block;
+            animation: heartBeat 0.8s ease-in-out infinite;
+            color: #ff6b8a;
+            font-size: 1.3rem;
+        }
+        @keyframes heartBeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.35);
+            }
+            30% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.25);
+            }
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-emoji {
+                font-size: 3.5rem;
+            }
+            .ttt-board {
+                grid-template-columns: repeat(3, 65px);
+                grid-template-rows: repeat(3, 65px);
+                gap: 5px;
+            }
+            .ttt-cell {
+                width: 65px;
+                height: 65px;
+                font-size: 1.8rem;
+                border-radius: 12px;
+            }
+            .polaroid {
+                max-width: 140px;
+                padding: 8px 8px 25px 8px;
+            }
+            .polaroid img {
+                max-width: 120px;
+                height: 120px;
+            }
+            .note-message {
+                font-size: 1.4rem;
+            }
+            .btn-love,
+            .btn-hate {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+            .note-container {
+                padding: 20px 15px;
+                min-height: 240px;
+            }
+            .celebration-text {
+                font-size: 2.5rem;
+            }
+            .mascot {
+                font-size: 2.5rem;
+                bottom: 15px;
+                right: 15px;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ FLOATING HEARTS ============ -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- ============ CELEBRATION OVERLAY ============ -->
+    <div class="celebration-overlay" id="celebrationOverlay"></div>
+    <div class="celebration-text" id="celebrationText"></div>
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- ============ MASCOT ============ -->
+    <div class="mascot-tooltip" id="mascotTooltip">Click me for a surprise! 😊</div>
+    <div class="mascot" id="mascot" title="Click me!">🧸</div>
+
+    <!-- ============ MAIN WRAPPER ============ -->
+    <div class="main-wrapper">
+
+        <!-- HERO -->
+        <section class="hero-section">
+            <div class="hero-emoji">🥺</div>
+            <h1 class="hero-title">I'm So Sorry</h1>
+            <p class="hero-subtitle">You mean the world to me, and I hate seeing you upset...</p>
+            <div class="hero-hearts-row">💗 💖 💕 💝 💗</div>
+        </section>
+
+        <!-- PHOTO GALLERY -->
+        <section class="gallery-section">
+            <div class="section-title">📸 Our Beautiful Memories</div>
+            <div class="gallery-grid" id="galleryGrid">
+                <!--
+                ============================================
+                🔴 REPLACE THE 'src' BELOW WITH YOUR GF'S PHOTOS 🔴
+                You can use local files or URLs.
+                Example: src="photos/her-pic1.jpg"
+                ============================================
+                -->
+                <div class="polaroid">
+                    <img src="https://picsum.photos/300/300?random=10" alt="Memory 1" loading="lazy">
+                    <span class="caption">My Favorite Smile ✨</span>
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/300/300?random=11" alt="Memory 2" loading="lazy">
+                    <span class="caption">Beautiful You 💖</span>
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/300/300?random=12" alt="Memory 3" loading="lazy">
+                    <span class="caption">Perfect Moment 🌸</span>
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/300/300?random=13" alt="Memory 4" loading="lazy">
+                    <span class="caption">My Sunshine ☀️</span>
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/300/300?random=14" alt="Memory 5" loading="lazy">
+                    <span class="caption">Angel Face 😇</span>
+                </div>
+                <div class="polaroid">
+                    <img src="https://picsum.photos/300/300?random=15" alt="Memory 6" loading="lazy">
+                    <span class="caption">Cutest Ever 🎀</span>
+                </div>
+            </div>
+            <p class="gallery-note">
+                💡 <strong>Tip:</strong> Open this file in a code editor and search for
+                <code>picsum.photos</code> to replace these with her real photos!
+            </p>
+        </section>
+
+        <!-- TIC TAC TOE -->
+        <section class="ttt-section">
+            <div class="section-title">🎮 Play Tic-Tac-Toe With Me!</div>
+            <div class="ttt-wrapper">
+                <div class="ttt-score">
+                    <span>❤️ You: <strong id="scoreYou">0</strong></span>
+                    <span>🤖 Cute Bot: <strong id="scoreBot">0</strong></span>
+                    <span>🤝 Draws: <strong id="scoreDraw">0</strong></span>
+                </div>
+                <div class="ttt-status" id="tttStatus">Your turn, gorgeous! ❤️</div>
+                <div class="ttt-board" id="tttBoard"></div>
+                <button class="ttt-reset" id="tttReset">🔄 New Game</button>
+            </div>
+        </section>
+
+        <!-- LOVE NOTE GAME -->
+        <section class="note-section">
+            <div class="section-title">💌 A Special Note For You</div>
+            <div class="note-container" id="noteContainer">
+                <span class="note-envelope-emoji">💌</span>
+                <div class="note-message">I Love You 💕</div>
+                <div class="note-buttons-area" id="noteButtonsArea">
+                    <button class="btn-love" id="btnLoveYouToo">Love you too ❤️</button>
+                    <button class="btn-hate" id="btnHate">I hate u 💔</button>
+                </div>
+                <div class="dodge-counter" id="dodgeCounter"></div>
+                <div class="speech-bubble" id="speechBubble"></div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="footer-note">
+            Made with <span class="heart-beat">❤️</span> just for you...
+            <br>You're the most amazing person in my life 🌹
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 🔧 GLOBAL VARIABLES & DOM REFS
+        // ============================================
+        const heartsContainer = document.getElementById('heartsContainer');
+        const celebrationOverlay = document.getElementById('celebrationOverlay');
+        const celebrationText = document.getElementById('celebrationText');
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+        const mascot = document.getElementById('mascot');
+        const mascotTooltip = document.getElementById('mascotTooltip');
+        const btnLoveYouToo = document.getElementById('btnLoveYouToo');
+        const btnHate = document.getElementById('btnHate');
+        const noteButtonsArea = document.getElementById('noteButtonsArea');
+        const dodgeCounterEl = document.getElementById('dodgeCounter');
+        const speechBubble = document.getElementById('speechBubble');
+        const tttBoard = document.getElementById('tttBoard');
+        const tttStatus = document.getElementById('tttStatus');
+        const tttReset = document.getElementById('tttReset');
+        const scoreYouEl = document.getElementById('scoreYou');
+        const scoreBotEl = document.getElementById('scoreBot');
+        const scoreDrawEl = document.getElementById('scoreDraw');
+
+        // ============================================
+        // 💖 FLOATING HEARTS GENERATOR
+        // ============================================
+        const heartEmojis = ['💕', '💖', '💗', '💝', '💘', '💓', '🩷', '❤️', '💞', '🫶', '🌸', '✨', '💐', '🦋'];
+
+        function createFloatingHeart() {
+            const heart = document.createElement('span');
+            heart.classList.add('floating-heart');
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 95 + '%';
+            heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+            heart.style.animationDuration = (Math.random() * 8 + 7) + 's';
+            heart.style.animationDelay = '0s';
+            heartsContainer.appendChild(heart);
+
+            // Remove after animation ends
+            const duration = parseFloat(heart.style.animationDuration) * 1000;
+            setTimeout(() => {
+                if (heart.parentNode) heart.parentNode.removeChild(heart);
+            }, duration + 500);
+        }
+
+        // Spawn hearts periodically
+        setInterval(createFloatingHeart, 600);
+        // Initial burst
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createFloatingHeart, i * 200);
+        }
+
+        // ============================================
+        // ✨ SPARKLE CURSOR TRAIL
+        // ============================================
+        const sparkleEmojis = ['✨', '⭐', '💫', '🌟', '❣️', '💖', '⋅'];
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.55) {
+                const sparkle = document.createElement('span');
+                sparkle.classList.add('sparkle');
+                sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.setProperty('--sx', (Math.random() - 0.5) * 60 + 'px');
+                sparkle.style.setProperty('--sy', (Math.random() - 0.5) * 60 - 30 + 'px');
+                document.body.appendChild(sparkle);
+                setTimeout(() => {
+                    if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
+                }, 700);
+            }
+        });
+
+        // Also add sparkles on touch for mobile
+        document.addEventListener('touchmove', (e) => {
+            if (Math.random() > 0.5) {
+                const touch = e.touches[0];
+                const sparkle = document.createElement('span');
+                sparkle.classList.add('sparkle');
+                sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+                sparkle.style.left = touch.clientX + 'px';
+                sparkle.style.top = touch.clientY + 'px';
+                sparkle.style.setProperty('--sx', (Math.random() - 0.5) * 40 + 'px');
+                sparkle.style.setProperty('--sy', (Math.random() - 0.5) * 40 - 20 + 'px');
+                document.body.appendChild(sparkle);
+                setTimeout(() => {
+                    if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
+                }, 700);
+            }
+        });
+
+        // ============================================
+        // 🧸 MASCOT INTERACTION
+        // ============================================
+        let mascotClickCount = 0;
+        const mascotMessages = [
+            'Hey cutie! 👋',
+            'You found me again! 🌟',
+            'I believe in you two! 💑',
+            'Click the love button! 💕',
+            'You\'re the best! 🏆',
+            'Sending hugs! 🤗',
+            'Love is in the air! 💖',
+            'You got this! ✨',
+        ];
+
+        mascot.addEventListener('click', () => {
+            mascotClickCount++;
+            const msg = mascotMessages[mascotClickCount % mascotMessages.length];
+            mascotTooltip.textContent = msg;
+            mascotTooltip.classList.add('show');
+            // Burst of hearts from mascot
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const h = document.createElement('span');
+                    h.classList.add('sparkle');
+                    h.textContent = ['💕', '💖', '✨', '🌟'][Math.floor(Math.random() * 4)];
+                    h.style.left = (mascot.getBoundingClientRect().left + Math.random() * 40) + 'px';
+                    h.style.top = (mascot.getBoundingClientRect().top - Math.random() * 40) + 'px';
+                    h.style.setProperty('--sx', (Math.random() - 0.5) * 100 + 'px');
+                    h.style.setProperty('--sy', -(Math.random() * 80 + 20) + 'px');
+                    h.style.fontSize = '1.4rem';
+                    document.body.appendChild(h);
+                    setTimeout(() => {
+                        if (h.parentNode) h.parentNode.removeChild(h);
+                    }, 800);
+                }, i * 40);
+            }
+            setTimeout(() => mascotTooltip.classList.remove('show'), 2500);
+            // Wiggle
+            mascot.style.animation = 'none';
+            mascot.offsetHeight;
+            mascot.style.animation = 'mascotWiggle 0.5s ease-in-out';
+            setTimeout(() => {
+                mascot.style.animation = 'mascotBounce 2s ease-in-out infinite';
+            }, 500);
+        });
+
+        // Show tooltip initially
+        setTimeout(() => {
+            mascotTooltip.classList.add('show');
+            setTimeout(() => mascotTooltip.classList.remove('show'), 4000);
+        }, 2000);
+
+        // ============================================
+        // 🎮 TIC TAC TOE GAME
+        // ============================================
+        let tttCells = Array(9).fill(null);
+        let tttGameActive = true;
+        let tttCurrentPlayer = '❤️'; // Player goes first
+        const PLAYER = '❤️';
+        const BOT = '🌸';
+        let scoreYou = 0;
+        let scoreBot = 0;
+        let scoreDraw = 0;
+        let winningCombo = null;
+
+        const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8], // rows
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8], // cols
+            [0, 4, 8],
+            [2, 4, 6] // diags
+        ];
+
+        function renderTTTBoard() {
+            tttBoard.innerHTML = '';
+            tttCells.forEach((val, idx) => {
+                const cell = document.createElement('div');
+                cell.classList.add('ttt-cell');
+                if (val) cell.classList.add('taken');
+                if (winningCombo && winningCombo.includes(idx)) cell.classList.add('winning-cell');
+                cell.textContent = val || '';
+                cell.dataset.index = idx;
+                cell.addEventListener('click', () => handleTTTClick(idx));
+                tttBoard.appendChild(cell);
+            });
+        }
+
+        function handleTTTClick(idx) {
+            if (!tttGameActive) return;
+            if (tttCells[idx] !== null) return;
+            if (tttCurrentPlayer !== PLAYER) return; // Not player's turn
+
+            // Player move
+            tttCells[idx] = PLAYER;
+            renderTTTBoard();
+            const result = checkTTTResult();
+            if (result) {
+                handleTTTEnd(result);
+                return;
+            }
+            // Switch to bot
+            tttCurrentPlayer = BOT;
+            tttStatus.textContent = 'Cute Bot is thinking... 🤔';
+            tttStatus.style.color = '#c9a0dc';
+            // Bot moves after a short delay
+            setTimeout(botMove, 500);
+        }
+
+        function botMove() {
+            if (!tttGameActive) return;
+            const bestMove = getBestBotMove();
+            if (bestMove !== null && tttCells[bestMove] === null) {
+                tttCells[bestMove] = BOT;
+            }
+            renderTTTBoard();
+            const result = checkTTTResult();
+            if (result) {
+                handleTTTEnd(result);
+                return;
+            }
+            // Switch back to player
+            tttCurrentPlayer = PLAYER;
+            tttStatus.textContent = 'Your turn, gorgeous! ❤️';
+            tttStatus.style.color = '#ff6b8a';
+        }
+
+        function getBestBotMove() {
+            // 1. Can bot win?
+            for (const combo of winCombos) {
+                const [a, b, c] = combo;
+                if (tttCells[a] === BOT && tttCells[b] === BOT && tttCells[c] === null) return c;
+                if (tttCells[a] === BOT && tttCells[c] === BOT && tttCells[b] === null) return b;
+                if (tttCells[b] === BOT && tttCells[c] === BOT && tttCells[a] === null) return a;
+            }
+            // 2. Block player from winning
+            for (const combo of winCombos) {
+                const [a, b, c] = combo;
+                if (tttCells[a] === PLAYER && tttCells[b] === PLAYER && tttCells[c] === null) return c;
+                if (tttCells[a] === PLAYER && tttCells[c] === PLAYER && tttCells[b] === null) return b;
+                if (tttCells[b] === PLAYER && tttCells[c] === PLAYER && tttCells[a] === null) return a;
+            }
+            // 3. Take center
+            if (tttCells[4] === null) return 4;
+            // 4. Take a random corner
+            const corners = [0, 2, 6, 8];
+            const openCorners = corners.filter(i => tttCells[i] === null);
+            if (openCorners.length > 0) return openCorners[Math.floor(Math.random() * openCorners.length)];
+            // 5. Take any available edge
+            const edges = [1, 3, 5, 7];
+            const openEdges = edges.filter(i => tttCells[i] === null);
+            if (openEdges.length > 0) return openEdges[Math.floor(Math.random() * openEdges.length)];
+            // 6. Take any available cell
+            const openCells = tttCells.map((v, i) => v === null ? i : null).filter(v => v !== null);
+            if (openCells.length > 0) return openCells[Math.floor(Math.random() * openCells.length)];
+            return null;
+        }
+
+        function checkTTTResult() {
+            for (const combo of winCombos) {
+                const [a, b, c] = combo;
+                if (tttCells[a] && tttCells[a] === tttCells[b] && tttCells[a] === tttCells[c]) {
+                    winningCombo = combo;
+                    return tttCells[a]; // '❤️' or '🌸'
+                }
+            }
+            if (tttCells.every(cell => cell !== null)) {
+                return 'draw';
+            }
+            return null;
+        }
+
+        function handleTTTEnd(result) {
+            tttGameActive = false;
+            renderTTTBoard();
+            if (result === PLAYER) {
+                scoreYou++;
+                scoreYouEl.textContent = scoreYou;
+                tttStatus.textContent = '🎉 You Won! Amazing! 🎉';
+                tttStatus.style.color = '#ff6b8a';
+                triggerCelebration('You Win! 🏆');
+            } else if (result === BOT) {
+                scoreBot++;
+                scoreBotEl.textContent = scoreBot;
+                tttStatus.textContent = 'Bot wins... but you\'re still the best! 💖';
+                tttStatus.style.color = '#c9a0dc';
+            } else if (result === 'draw') {
+                scoreDraw++;
+                scoreDrawEl.textContent = scoreDraw;
+                tttStatus.textContent = 'It\'s a draw! Great game! 🤝';
+                tttStatus.style.color = '#ffb6c1';
+            }
+            // Auto-reset after 2.5 seconds
+            setTimeout(resetTTT, 2500);
+        }
+
+        function resetTTT() {
+            tttCells = Array(9).fill(null);
+            tttGameActive = true;
+            tttCurrentPlayer = PLAYER;
+            winningCombo = null;
+            tttStatus.textContent = 'Your turn, gorgeous! ❤️';
+            tttStatus.style.color = '#ff6b8a';
+            renderTTTBoard();
+        }
+
+        tttReset.addEventListener('click', () => {
+            resetTTT();
+            // Don't reset scores on manual reset, just the board
+        });
+
+        // Initialize TTT
+        renderTTTBoard();
+
+        // ============================================
+        // 💌 LOVE NOTE - DODGING BUTTON
+        // ============================================
+        let dodgeCount = 0;
+        let hateButtonTransformed = false;
+        const dodgeMessages = [
+            'Nope! 🙅',
+            'Can\'t catch me! 😜',
+            'Try again! 🏃💨',
+            'Too slow! ⚡',
+            'Haha, missed! 😝',
+            'Not today! ✋',
+            'You\'re persistent! 😅',
+            'Almost... but no! 🤪',
+            'Ugh, fine... 🥺',
+        ];
+
+        function positionHateButton() {
+            if (hateButtonTransformed) return;
+            const container = noteButtonsArea;
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnHate.getBoundingClientRect();
+
+            const maxLeft = containerRect.width - btnRect.width - 10;
+            const maxTop = containerRect.height - btnRect.height - 10;
+
+            const randomLeft = Math.max(5, Math.min(maxLeft, Math.random() * maxLeft));
+            const randomTop = Math.max(5, Math.min(maxTop, Math.random() * maxTop));
+
+            btnHate.style.position = 'absolute';
+            btnHate.style.left = randomLeft + 'px';
+            btnHate.style.top = randomTop + 'px';
+        }
+
+        function moveHateButton(e) {
+            if (hateButtonTransformed) return;
+
+            // Prevent default click behavior
+            if (e && e.preventDefault) e.preventDefault();
+
+            dodgeCount++;
+            positionHateButton();
+
+            // Update dodge counter
+            if (dodgeCount <= 3) {
+                dodgeCounterEl.textContent = '🙈';
+                btnHate.textContent = 'I hate u 💔';
+            } else if (dodgeCount <= 6) {
+                dodgeCounterEl.textContent = '😤 Hey!';
+                btnHate.textContent = 'I hate u... maybe? 💔';
+                btnHate.style.background = '#f0e0e5';
+            } else if (dodgeCount <= 9) {
+                dodgeCounterEl.textContent = '😅 Ugh fine...';
+                btnHate.textContent = 'Ugh... fine! 😅';
+                btnHate.style.background = '#ffe0ec';
+                btnHate.style.color = '#ff6b8a';
+                btnHate.classList.add('moving-fast');
+            } else {
+                // Transform!
+                transformHateButton();
+                return;
+            }
+
+            // Show speech bubble
+            const msgIndex = Math.min(dodgeCount - 1, dodgeMessages.length - 1);
+            speechBubble.textContent = dodgeMessages[msgIndex];
+            speechBubble.classList.add('show');
+            // Position speech bubble near the button
+            const btnRect = btnHate.getBoundingClientRect();
+            const containerRect = noteButtonsArea.getBoundingClientRect();
+            speechBubble.style.left = (btnRect.left - containerRect.left + btnRect.width / 2) + 'px';
+            speechBubble.style.top = (btnRect.top - containerRect.top - 30) + 'px';
+
+            setTimeout(() => {
+                speechBubble.classList.remove('show');
+            }, 1500);
+
+            // Small screen shake on dodge
+            if (dodgeCount % 3 === 0) {
+                document.body.style.transform = 'translateX(3px)';
+                setTimeout(() => { document.body.style.transform = 'translateX(-3px)'; }, 50);
+                setTimeout(() => { document.body.style.transform = 'translateX(0)'; }, 100);
+            }
+        }
+
+        function transformHateButton() {
+            hateButtonTransformed = true;
+            btnHate.textContent = 'Love you too 💖';
+            btnHate.style.background = 'linear-gradient(135deg, #ff6b8a, #ff4477)';
+            btnHate.style.color = '#fff';
+            btnHate.style.border = 'none';
+            btnHate.style.boxShadow = '0 6px 20px rgba(255,68,119,0.4)';
+            btnHate.style.fontWeight = '700';
+            btnHate.classList.remove('moving-fast');
+            btnHate.style.position = 'relative';
+            btnHate.style.left = 'auto';
+            btnHate.style.top = 'auto';
+            dodgeCounterEl.textContent = 'Aww... you caught me! 🥰';
+            dodgeCounterEl.style.color = '#ff6b8a';
+            speechBubble.textContent = 'Okay okay, I love you too! 💕';
+            speechBubble.classList.add('show');
+            speechBubble.style.left = '50%';
+            speechBubble.style.top = '-35px';
+            setTimeout(() => speechBubble.classList.remove('show'), 2500);
+
+            // Now clicking the transformed button triggers celebration
+            btnHate.onclick = (e) => {
+                e.stopPropagation();
+                triggerCelebration('YAY! She Loves You! 💖🎉');
+            };
+            btnHate.onmouseenter = null;
+            btnHate.ontouchstart = null;
+        }
+
+        // Attach dodging events to the hate button
+        btnHate.addEventListener('mouseenter', moveHateButton);
+        btnHate.addEventListener('touchstart', (e) => {
+            moveHateButton(e);
+            // Prevent the click from firing after touch
+            e.preventDefault();
+        }, { passive: false });
+        btnHate.addEventListener('click', (e) => {
+            if (!hateButtonTransformed) {
+                e.preventDefault();
+                e.stopPropagation();
+                moveHateButton(e);
+            }
+        });
+
+        // Initial position
+        positionHateButton();
+
+        // Resize handler to keep button in bounds
+        window.addEventListener('resize', () => {
+            if (!hateButtonTransformed) positionHateButton();
+        });
+
+        // ============================================
+        // 💕 LOVE YOU TOO BUTTON - CELEBRATION
+        // ============================================
+        btnLoveYouToo.addEventListener('click', () => {
+            triggerCelebration('I Love You Too! 💖🎉');
+        });
+
+        // ============================================
+        // 🎉 CELEBRATION SYSTEM
+        // ============================================
+        let confettiParticles = [];
+        let confettiAnimationId = null;
+        let isConfettiRunning = false;
+
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
+
+        function triggerCelebration(message) {
+            // Show celebration text
+            celebrationText.textContent = message;
+            celebrationText.classList.add('show');
+            celebrationOverlay.classList.add('active');
+
+            // Start confetti
+            startConfetti();
+
+            // Burst of hearts
+            for (let i = 0; i < 25; i++) {
+                setTimeout(createFloatingHeart, i * 50);
+            }
+
+            // Create extra big floating hearts
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const bigHeart = document.createElement('span');
+                    bigHeart.classList.add('floating-heart');
+                    bigHeart.textContent = ['💖', '💕', '💝', '🎉', '✨', '💗'][Math.floor(Math.random() * 6)];
+                    bigHeart.style.left = Math.random() * 90 + '%';
+                    bigHeart.style.fontSize = '3rem';
+                    bigHeart.style.animationDuration = '4s';
+                    heartsContainer.appendChild(bigHeart);
+                    setTimeout(() => {
+                        if (bigHeart.parentNode) bigHeart.parentNode.removeChild(bigHeart);
+                    }, 4500);
+                }, i * 80);
+            }
+
+            // Hide celebration overlay after a while
+            setTimeout(() => {
+                celebrationText.classList.remove('show');
+                celebrationOverlay.classList.remove('active');
+                stopConfetti();
+            }, 4000);
+        }
+
+        function startConfetti() {
+            if (isConfettiRunning) return;
+            isConfettiRunning = true;
+            confettiParticles = [];
+            // Create initial burst
+            for (let i = 0; i < 200; i++) {
+                confettiParticles.push(createConfettiParticle());
+            }
+            animateConfetti();
+        }
+
+        function stopConfetti() {
+            isConfettiRunning = false;
+            if (confettiAnimationId) {
+                cancelAnimationFrame(confettiAnimationId);
+                confettiAnimationId = null;
+            }
+            confettiParticles = [];
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        }
+
+        function createConfettiParticle() {
+            return {
+                x: Math.random() * confettiCanvas.width,
+                y: Math.random() * confettiCanvas.height * -1 - 20,
+                w: Math.random() * 10 + 5,
+                h: Math.random() * 6 + 3,
+                color: ['#ff6b8a', '#ffb6c1', '#ffd700', '#ff69b4', '#c9a0dc', '#ff7f7f', '#ffe0ec', '#fff',
+                    '#ff4477'
+                ][Math.floor(Math.random() * 9)],
+                speedY: Math.random() * 3 + 2,
+                speedX: (Math.random() - 0.5) * 3,
+                rotation: Math.random() * 360,
+                rotSpeed: (Math.random() - 0.5) * 8,
+                opacity: 1,
+            };
+        }
+
+        function animateConfetti() {
+            if (!isConfettiRunning) {
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                return;
+            }
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+            // Add new particles if running
+            if (confettiParticles.length < 250 && Math.random() > 0.6) {
+                confettiParticles.push(createConfettiParticle());
+            }
+
+            confettiParticles = confettiParticles.filter(p => p.opacity > 0 && p.y < confettiCanvas.height + 50);
+
+            for (const p of confettiParticles) {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                p.rotation += p.rotSpeed;
+                if (p.y > confettiCanvas.height * 0.7) p.opacity -= 0.005;
+                if (p.opacity <= 0) continue;
+
+                confettiCtx.save();
+                confettiCtx.globalAlpha = p.opacity;
+                confettiCtx.translate(p.x, p.y);
+                confettiCtx.rotate((p.rotation * Math.PI) / 180);
+                confettiCtx.fillStyle = p.color;
+                confettiCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                confettiCtx.restore();
+            }
+
+            confettiAnimationId = requestAnimationFrame(animateConfetti);
+        }
+
+        // ============================================
+        // 🎨 INITIAL SETUP & EASTER EGGS
+        // ============================================
+        // Initial burst of hearts on page load
+        setTimeout(() => {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createFloatingHeart, i * 100);
+            }
+        }, 300);
+
+        // Keyboard shortcut: press 'L' for instant celebration
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'l' || e.key === 'L') {
+                triggerCelebration('Secret Love Celebration! 💖🎉');
+            }
+            if (e.key === 'r' || e.key === 'R') {
+                resetTTT();
+            }
+        });
+
+        // Handle window resize for hate button
+        window.addEventListener('resize', () => {
+            if (!hateButtonTransformed) {
+                // Recalculate position after a short delay
+                setTimeout(positionHateButton, 200);
+            }
+            resizeConfettiCanvas();
+        });
+
+        // ============================================
+        // 📱 TOUCH OPTIMIZATION
+        // ============================================
+        // Prevent double-tap zoom on buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', function(e) {
+                if (this === btnHate && !hateButtonTransformed) return; // handled separately
+                // Allow normal touch behavior for other buttons
+            }, { passive: true });
+        });
+
+        // ============================================
+        // 🎯 INITIAL HATE BUTTON POSITIONING
+        // ============================================
+        // Ensure the note container has proper positioning context
+        noteButtonsArea.style.position = 'relative';
+        noteButtonsArea.style.minHeight = '140px';
+        // Give the hate button a moment to render, then position it
+        setTimeout(positionHateButton, 100);
+
+        // ============================================
+        // 📝 CONSOLE EASTER EGG
+        // ============================================
+        console.log(`
+        💖  Hey there! If you're reading this...
+        💕  You're an amazing person and you deserve all the love!
+        🌸  I hope this page made you smile :)
+        🎀  - With love from your developer BF
+        ✨  PS: Press 'L' for a surprise celebration!
+        `);
+
+        // ============================================
+        // 🖼️ GALLERY IMAGE CHANGE HELPER
+        // ============================================
+        // To change gallery images, search for "picsum.photos" in this file
+        // and replace those URLs with your girlfriend's photo paths.
+        // You can use:
+        //   - Local files: "photos/her-pic.jpg"
+        //   - Online URLs: "https://example.com/her-pic.jpg"
+        //   - Base64 data URIs
+        // Each polaroid has a caption you can also customize!
+        console.log('📸 Gallery tip: Search for "picsum.photos" to replace placeholder images!');
+    </script>
+</body>
+</html>
