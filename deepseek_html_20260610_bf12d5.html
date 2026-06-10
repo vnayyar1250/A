@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Velvet Vault | Fashion Lookbook</title>
+  <!-- Google Fonts + Swiper CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0f0e0e;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Inter", sans-serif;
+    }
+
+    section {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 10% 30%, #1a1412, #070505);
+      min-height: 100vh;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    /* main glass card container - warm tones */
+    .content {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 245, 235, 0.2) 0%,
+        rgba(255, 225, 200, 0.05) 100%
+      );
+      backdrop-filter: blur(24px);
+      border-radius: 48px;
+      width: min(1000px, 94%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 215, 180, 0.2) inset;
+      z-index: 10;
+      padding: 32px 24px;
+      transition: all 0.3s ease;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 420px;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    .info p {
+      color: #faf3e8;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 28px;
+      line-height: 1.55;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      font-family: "Inter", sans-serif;
+    }
+
+    .fashion-highlight {
+      background: linear-gradient(125deg, #FFB47B, #FF7A5C, #D94F30);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+      display: inline-block;
+      letter-spacing: -0.2px;
+    }
+
+    /* base button style (will be replaced dynamically) */
+    .btn {
+      display: inline-block;
+      padding: 14px 48px;
+      margin: 8px auto 6px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 60px;
+      outline: none;
+      text-decoration: none;
+      color: #2d1a0f;
+      background: rgba(255, 245, 235, 0.96);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+      font-family: "Inter", sans-serif;
+    }
+
+    .btn:hover {
+      animation: softFloat 0.4s ease forwards;
+      background: #fff8f0;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    @keyframes softFloat {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+      100% { transform: translateY(-2px); }
+    }
+
+    /* style for the replaced "go to next page" button (warm fashion vibe) */
+    .btn-replaced {
+      background: linear-gradient(135deg, #FF9A6E, #E85D3A);
+      color: white !important;
+      border: none;
+      box-shadow: 0 12px 28px rgba(210, 70, 30, 0.4);
+      text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    }
+    .btn-replaced:hover {
+      background: linear-gradient(135deg, #FFAD82, #F06742);
+      transform: scale(1.02) translateY(-2px);
+      animation: none;
+      box-shadow: 0 16px 32px rgba(210, 70, 30, 0.5);
+    }
+
+    /* ----- SWIPER (cards effect - fashion lookbook) ----- */
+    .swiper {
+      width: 270px;
+      height: 480px;
+      padding: 40px 0 50px 0;
+      margin-right: 0px;
+    }
+
+    .swiper-slide {
+      position: relative;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 210, 170, 0.3);
+      border-radius: 28px;
+      user-select: none;
+      overflow: hidden;
+      transition: all 0.2s;
+      background: #2a1e18;
+    }
+
+    .swiper-slide img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .swiper-slide:hover img {
+      transform: scale(1.02);
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, #1f1109cc 5%, transparent 45%, rgba(0,0,0,0.2) 80%);
+      background-repeat: no-repeat;
+      background-size: cover;
+      pointer-events: none;
+      backdrop-filter: brightness(0.98);
+    }
+
+    .overlay span {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      color: #ffeadb;
+      padding: 5px 14px;
+      border-radius: 40px;
+      letter-spacing: 0.5px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      font-family: "Inter", sans-serif;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border: 0.5px solid rgba(255,200,150,0.5);
+    }
+
+    .overlay h2 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      color: #fff5ea;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.3;
+      margin: 0 0 20px 20px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      letter-spacing: -0.2px;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(90deg, rgba(0,0,0,0.4), transparent);
+      padding-right: 18px;
+    }
+
+    /* animated gradient circles - warm color palette matching clothing site */
+    .circles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .circles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: #FF8A5C;
+      background: linear-gradient(145deg, #FFB27A, #E85D3A);
+      animation: animateFloat 22s linear infinite;
+      bottom: -150px;
+      opacity: 0.55;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    }
+
+    .circles li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 18s; }
+    .circles li:nth-child(2) { left: 10%; width: 25px; height: 25px; animation-delay: 2s; animation-duration: 14s; background: #FFA36B; }
+    .circles li:nth-child(3) { left: 70%; width: 22px; height: 22px; animation-delay: 4s; animation-duration: 20s; }
+    .circles li:nth-child(4) { left: 40%; width: 70px; height: 70px; animation-delay: 0s; animation-duration: 22s; background: #FF7A48; }
+    .circles li:nth-child(5) { left: 65%; width: 30px; height: 30px; animation-delay: 0s; animation-duration: 16s; }
+    .circles li:nth-child(6) { left: 75%; width: 120px; height: 120px; animation-delay: 3s; animation-duration: 25s; background: #E85D3A; opacity: 0.3; }
+    .circles li:nth-child(7) { left: 35%; width: 140px; height: 140px; animation-delay: 7s; animation-duration: 28s; background: #FF9A6E; opacity: 0.2; }
+    .circles li:nth-child(8) { left: 50%; width: 28px; height: 28px; animation-delay: 15s; animation-duration: 40s; }
+    .circles li:nth-child(9) { left: 20%; width: 18px; height: 18px; animation-delay: 2s; animation-duration: 32s; }
+    .circles li:nth-child(10) { left: 85%; width: 100px; height: 100px; animation-delay: 0s; animation-duration: 15s; background: #FFB88C; opacity: 0.3; }
+
+    @keyframes animateFloat {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      }
+      100% {
+        transform: translateY(-1100px) rotate(380deg);
+        opacity: 0;
+        border-radius: 50%;
+      }
+    }
+
+    /* ============== RESPONSIVE (phone, tablet, landscape) ============== */
+    @media (max-width: 820px) {
+      .content {
+        flex-direction: column-reverse;
+        gap: 28px;
+        padding: 32px 20px;
+        border-radius: 36px;
+      }
+      .info {
+        max-width: 100%;
+        padding: 0 10px;
+      }
+      .info p {
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+      .btn {
+        padding: 12px 40px;
+        font-size: 1rem;
+      }
+      .swiper {
+        width: 250px;
+        height: 440px;
+        margin-right: 0;
+        padding: 30px 0 40px 0;
+      }
+      .overlay h2 {
+        font-size: 0.9rem;
+        margin: 0 0 16px 16px;
+      }
+      .overlay span {
+        padding: 4px 12px;
+        font-size: 0.65rem;
+        top: 12px;
+        right: 12px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .swiper {
+        width: 220px;
+        height: 400px;
+      }
+      .info p {
+        font-size: 0.85rem;
+        line-height: 1.45;
+      }
+      .btn {
+        padding: 10px 34px;
+        font-size: 0.9rem;
+      }
+      .content {
+        padding: 24px 16px;
+        gap: 20px;
+      }
+      .overlay h2 {
+        font-size: 0.8rem;
+        margin: 0 0 12px 12px;
+      }
+    }
+
+    /* extra small height landscape */
+    @media (max-width: 850px) and (orientation: landscape) {
+      .content {
+        flex-direction: row;
+        gap: 30px;
+        padding: 20px;
+      }
+      .swiper {
+        width: 220px;
+        height: 380px;
+      }
+      .info p {
+        font-size: 0.8rem;
+        margin-bottom: 12px;
+      }
+      .btn {
+        padding: 8px 28px;
+      }
+    }
+    
+    /* fashion badge / custom */
+    .badge-dot {
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div class="content">
+    <div class="info">
+      <p>
+        Discover the new <span class="fashion-highlight">'Velvet Vault'</span> collection — where minimalism meets raw elegance. 
+        Step into a curated space of timeless silhouettes, textured layers, and bold comfort. 
+        Whether you love streetwear chic or couture edge, our lookbook brings style alive. 
+        Save your front-row pass and experience the drop first.
+      </p>
+      <!-- initial "Join" button will be replaced after page loads (navigation to clothing site) -->
+      <button class="btn" id="dynamicActionBtn">Join Event</button>
+    </div>
+    <div class="swiper-container">
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <!-- NEW FASHION CARDS (clothing images from the given urls) - exactly 7 slides -->
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070146915-07a8d06a-fa8f-4736-a5e6-25eeb54965e8.webp" alt="Editorial look 1">
+            <div class="overlay">
+              <span>SS25</span>
+              <h2>Silhouette No.1</h2>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070273186-bb3992b6-457c-4542-8557-0e7bc09ed86f.webp" alt="Editorial look 2">
+            <div class="overlay">
+              <span>SS25</span>
+              <h2>Raw Linen</h2>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070394056-c77ea044-a87c-4b18-8052-e6c78f7a339a.webp" alt="Editorial look 3">
+            <div class="overlay">
+              <span>PREMIUM</span>
+              <h2>Oversized Blazer</h2>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070430688-0b489bc9-55d9-42a7-8407-392d6d845ac3.webp" alt="Editorial look 4">
+            <div class="overlay">
+              <span>NEW</span>
+              <h2>Monochrome Flow</h2>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070458205-71273827-853a-41d4-9524-e10677dbe858.webp" alt="Editorial look 5">
+            <div class="overlay">
+              <span>BESTSELLER</span>
+              <h2>Textured Knit</h2>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070491298-b67e3fd8-bbb5-490a-8641-7da48f23a535.png" alt="Editorial look 6">
+            <div class="overlay">
+              <span>EXCLUSIVE</span>
+              <h2>Velvet Drape</h2>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <img src="https://www.image2url.com/r2/default/images/1781070542541-7470946f-1c70-489c-a20a-388ca7a019d8.webp" alt="Editorial look 7">
+            <div class="overlay">
+              <span>LIMITED</span>
+              <h2>Urban Edge</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="circles">
+    <li></li><li></li><li></li><li></li><li></li>
+    <li></li><li></li><li></li><li></li><li></li>
+  </ul>
+</section>
+
+<!-- Swiper JS library (cards effect) -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  (function() {
+    // 1) Initialize Swiper with cards effect (same smooth 3D)
+    const swiperEl = document.querySelector(".swiper");
+    if (swiperEl) {
+      new Swiper(".swiper", {
+        effect: "cards",
+        cardsEffect: {
+          rotate: true,
+          slideShadows: true,
+          perSlideOffset: 8,
+          perSlideRotate: 2
+        },
+        grabCursor: true,
+        initialSlide: 2,
+        speed: 560,
+        loop: true,
+        mousewheel: {
+          invert: false,
+          forceToAxis: true
+        },
+        touchRatio: 1.1,
+        resistance: true,
+      });
+    }
+
+    // 2) Button replacement logic: Page opens first (original "Join Event") 
+    // then replace with "Go to next page →" linked to the target clothing website.
+    const targetUrl = "https://vnayyar1250.github.io/ff/";
+    const originalBtn = document.getElementById("dynamicActionBtn");
+    
+    if (!originalBtn) return;
+    
+    let replacementDone = false;
+    
+    function transformToFashionNavigation() {
+      if (replacementDone) return;
+      replacementDone = true;
+      
+      const parent = originalBtn.parentNode;
+      const newButton = document.createElement("button");
+      newButton.id = "dynamicActionBtn";
+      newButton.className = "btn btn-replaced";
+      newButton.textContent = "✨ Explore Collection →";
+      newButton.setAttribute("aria-label", "Go to fashion collection website");
+      
+      // smooth replacement
+      parent.replaceChild(newButton, originalBtn);
+      
+      // Navigation: open target link (same tab as standard redirect)
+      newButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        // subtle haptic feedback friendly
+        window.location.href = targetUrl;
+      });
+      
+      // gentle fade-in for replaced button
+      newButton.style.opacity = "0";
+      newButton.style.transform = "scale(0.96)";
+      setTimeout(() => {
+        newButton.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+        newButton.style.opacity = "1";
+        newButton.style.transform = "scale(1)";
+      }, 20);
+    }
+    
+    // Ensure original page shows first, then replace after paint (to meet requirement)
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function() {
+        setTimeout(transformToFashionNavigation, 110);
+      });
+    } else {
+      setTimeout(transformToFashionNavigation, 110);
+    }
+    
+    // additional backup on pageshow (in case of back-forward cache)
+    window.addEventListener("pageshow", function() {
+      if (!replacementDone) {
+        setTimeout(transformToFashionNavigation, 90);
+      }
+    });
+  })();
+</script>
+</body>
+</html>
